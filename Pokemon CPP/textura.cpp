@@ -4,15 +4,19 @@
 #include <iostream>
 using namespace std;
 
-GLuint cargarTexturaDesdePNG(const char* ruta) {
+// Función para cargar una textura desde un archivo PNG usando stb_image
+GLuint cargarTexturaDesdePNG(const char* ruta, bool show) {
     int ancho, alto, canales;
     unsigned char* data = stbi_load(ruta, &ancho, &alto, &canales, STBI_rgb_alpha);
     if (!data) {
         std::cerr << "Error cargando " << ruta << std::endl;
         exit(1);
     }
-    else {
+    else if (show){
         std::cout << "Textura cargada: " << ruta << " (" << ancho << "x" << alto << ")" << std::endl;
+    }
+    else {
+    
     }
     GLuint id;
     glGenTextures(1, &id);

@@ -3,19 +3,22 @@
 #include "menu.h"
 #include "pokemon.h"
 #include "textura.h"
+#include "animations.h"
+#include "fonts.h"
 #include <ctime>
 int main(int argc, char** argv) {
-    srand(static_cast<unsigned int>(time(0)));
+	srand(static_cast<unsigned int>(time(0))); // Inicializa la semilla del generador de números aleatorios
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     glutCreateWindow("Pokemon");
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    initJuego(); // Inicializa texturas y estados
-    glutKeyboardFunc(teclado);
-    glutSpecialFunc(teclasEspeciales);
-    glutDisplayFunc(display);
-    glutTimerFunc(1, animarPokemones, 0);
-    glutMainLoop();
+    initJuego(); // Inicializa estados
+	cargarTexturas(); // Carga las texturas del juego
+	glutKeyboardFunc(teclado); // Inicializa teclado
+	glutSpecialFunc(teclasEspeciales); // Inicializa teclas especiales
+	glutDisplayFunc(display); // Inicializa la funcion de dibujo
+	glutTimerFunc(1, animarPokemones, 0); // Inicializa el temporizador de una animacion
+	glutMainLoop(); // Inicia el bucle principal de GLUT
     return 0;
 }

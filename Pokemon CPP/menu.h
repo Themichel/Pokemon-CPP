@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+// Declaraciones de botones, variables y funciones para los menus del juego
 
 struct boton {
     int x, y, width, height;

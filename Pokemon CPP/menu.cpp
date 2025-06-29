@@ -5,12 +5,20 @@
 // Matriz de seleccion de Pokemon
 boton menuPokemon[1][3] = {
     {
-        {120, WINDOW_HEIGHT / 2 - 60, 150, 150, "Bulbasaur"},
-        {320, WINDOW_HEIGHT / 2 - 60, 150, 150, "Squirtle"},
-        {520, WINDOW_HEIGHT / 2 - 60, 150, 150, "Charmander"}
+        {120, WINDOW_HEIGHT / 2 - 60, 160, 160, "Bulbasaur"},
+        {320, WINDOW_HEIGHT / 2 - 60, 160, 160, "Squirtle"},
+        {520, WINDOW_HEIGHT / 2 - 60, 160, 160, "Charmander"}
     }
 };
 
+boton menuFin[1][2] = {
+    {
+        {WINDOW_WIDTH / 2 - 180, WINDOW_HEIGHT / 2 - 80, 150, 60, "Reintentar"},
+        {WINDOW_WIDTH / 2 + 30, WINDOW_HEIGHT / 2 - 80, 150, 60, "Salir"}
+    }
+};
+
+/* Antiguo sistema de menu con botones para pruebas
 // Matriz de menu con botones
 boton menuMain[2][2] = {
         {
@@ -22,13 +30,7 @@ boton menuMain[2][2] = {
             {620, 20, 150, 60, "Huir"}
         }
 };
-
-boton menuFin[1][2] = {
-    {
-        {WINDOW_WIDTH / 2 - 180, WINDOW_HEIGHT / 2 - 80, 150, 60, "Reintentar"},
-        {WINDOW_WIDTH / 2 + 30, WINDOW_HEIGHT / 2 - 80, 150, 60, "Salir"}
-    }
-};
+*/
 
 // Matriz de menu de ataque con botones
 boton menuAtq[2][2] = {

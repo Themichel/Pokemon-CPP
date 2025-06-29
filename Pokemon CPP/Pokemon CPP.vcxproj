@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="animations.cpp" />
+    <ClCompile Include="fonts.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -26,6 +28,8 @@
     <ClCompile Include="textura.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animations.h" />
+    <ClInclude Include="fonts.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="menu.h" />
@@ -34,11 +38,18 @@
     <ClInclude Include="textura.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="assets\arrow.png" />
+    <Image Include="assets\background.png" />
     <Image Include="assets\back_bulbasaur.png" />
     <Image Include="assets\back_charmander.png" />
     <Image Include="assets\back_squirtle.png" />
+    <Image Include="assets\barrainferior.png" />
     <Image Include="assets\bulbasaur.png" />
     <Image Include="assets\charmander.png" />
+    <Image Include="assets\enemy_hp.png" />
+    <Image Include="assets\menuatq.png" />
+    <Image Include="assets\menuatq2.png" />
+    <Image Include="assets\player_hp.png" />
     <Image Include="assets\squirtle.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -117,6 +128,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\themi\Downloads\freetype-windows-binaries-master\freetype-windows-binaries-master\release static\vs2015-2022\win32\freetype.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Users\themi\Documents\Proyectos C++\Pokemon CPP\Pokemon CPP\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

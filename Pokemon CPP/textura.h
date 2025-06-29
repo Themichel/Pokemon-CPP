@@ -1,3 +1,4 @@
 #pragma once
 
-GLuint cargarTexturaDesdePNG(const char* ruta);
+// Cargar una textura desde un archivo PNG
+GLuint cargarTexturaDesdePNG(const char* ruta, bool show);

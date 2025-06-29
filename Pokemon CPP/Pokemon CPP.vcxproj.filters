@@ -36,6 +36,12 @@
     <ClCompile Include="textura.cpp">
       <Filter>Archivos de encabezado</Filter>
     </ClCompile>
+    <ClCompile Include="animations.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
+    <ClCompile Include="fonts.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -56,6 +62,12 @@
     <ClInclude Include="include\stb_image.h">
       <Filter>Archivos de encabezado\include</Filter>
     </ClInclude>
+    <ClInclude Include="animations.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="fonts.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\back_bulbasaur.png">
@@ -74,6 +86,27 @@
       <Filter>Archivos de recursos\assets</Filter>
     </Image>
     <Image Include="assets\squirtle.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\arrow.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\background.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\barrainferior.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\enemy_hp.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\menuatq.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\menuatq2.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\player_hp.png">
       <Filter>Archivos de recursos\assets</Filter>
     </Image>
   </ItemGroup>

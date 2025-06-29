@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <GL/freeglut.h>
+// Estructuras y funciones para manejar Pokémon y ataques en un juego de Pokémon
 
 struct ataque {
-    std::string nombre;
-    int danioBase;
+    std::string nombre, tipo;
+    int danioBase,ppfijo, pp;
     bool bajaDefensa, bajaAtaque;
     float modificador;
 };
@@ -29,3 +30,4 @@ void aplicarAtaque(pokemon& atacante, pokemon& defensor, ataque atq);
 void turnJugador(int selecJugador);
 void turnEnemigo();
 void dibujarPokemon(const pokemon& p, int x, int y, bool deFrente, int width, int height);
+void dibujarSprite(GLuint textura, int x, int y, int width, int height);
