@@ -1,9 +1,10 @@
 #include "pokemon.h"
 #include "game.h"
 #include "animations.h"
+#include "fonts.h"
+#include "textura.h"
 #include <iostream>
 using namespace std;
-
 // Pokemones
 pokemon bulbasaur = { "BULBASAUR", {"TACKLE","NORMAL", 3, 35, 35, false, false, 1.0f}, {"GROWL","NORMAL", 0, 40, 40, false, true, 0.2f}, 5, 20, 1, 1, 1.2f,"assets/back_bulbasaur.png","assets/bulbasaur.png",0,0};
 pokemon squirtle = { "SQUIRTLE", {"TACKLE","NORMAL", 3, 35, 35, false, false, 1.0f}, {"TAIL WHIP","NORMAL", 0, 30, 30, true, false, 0.2f}, 5, 20, 1, 1, 1.1f,"assets/back_squirtle.png", "assets/squirtle.png",0,0};
@@ -55,8 +56,8 @@ void turnEnemigo() {
         turnJugador(ataqueJugador);
     }
     else if (ultimoTurno == TURNOJUGADOR || ultimoTurno == NONE) {
-        estado = MENU;
-		estadoVisual = SELECCIONMENU;
+        estado = ESPERA;
+		estadoVisual = ESPERATURNO;
         aplicarAtaque(pokeEnemigo, pokeJugador, atq);
     }
 }
@@ -71,8 +72,8 @@ void turnJugador(int selecJugador) {
 		ataqueJugador = 0; // Reinicia la selección del ataque del jugador
     }
     else if (ultimoTurno == TURNOENEMIGO || ultimoTurno == NONE) {
-        estado = MENU;
-        estadoVisual = SELECCIONMENU;
+        estado = ESPERA;
+        estadoVisual = ESPERATURNO;
         aplicarAtaque(pokeJugador, pokeEnemigo, atq);
 	}
 }
@@ -97,11 +98,55 @@ void dibujarPokemon(const pokemon& p, int x, int y, bool deFrente, int width, in
     
 }
 
-void dibujarSprite(GLuint textura, int x, int y, int width, int height) {
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, textura);
-    glColor3f(1.0f, 1.0f, 1.0f); // Color blanco para no alterar la textura
+void dibujarSprite(GLuint textura, int x, int y, int width, int height, bool transparente) {
+    if (transparente) {
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBindTexture(GL_TEXTURE_2D, textura);
+        glColor3f(1.0f, 1.0f, 1.0f);
 
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 1); glVertex2i(x, y);
+        glTexCoord2f(1, 1); glVertex2i(x + width, y);
+        glTexCoord2f(1, 0); glVertex2i(x + width, y + height);
+        glTexCoord2f(0, 0); glVertex2i(x, y + height);
+        glEnd();
+
+        glDisable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+    }
+    
+    else {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textura);
+        glColor3f(1.0f, 1.0f, 1.0f);
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 1); glVertex2i(x, y);
+        glTexCoord2f(1, 1); glVertex2i(x + width, y);
+        glTexCoord2f(1, 0); glVertex2i(x + width, y + height);
+        glTexCoord2f(0, 0); glVertex2i(x, y + height);
+        glEnd();
+
+        glDisable(GL_TEXTURE_2D);
+    }
+}
+
+void dibujarHPJugador(GLuint textura, int x, int y, float width, float height, int hp) {
+    glColor3f(0.4078f, 0.9216f, 0.6078f);
+    glBegin(GL_QUADS);
+    glVertex2f(x + 166.5, y + 28); 
+    glVertex2f(x + 166.5 + (hp * 8.4), y + 28);
+    glVertex2f(x + 166.5 + (hp * 8.4), y + height - 59.5);
+    glVertex2f(x + 166.5, y + height - 59.5);
+    glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBindTexture(GL_TEXTURE_2D, textura);
     glBegin(GL_QUADS);
     glTexCoord2f(0, 1); glVertex2i(x, y);
     glTexCoord2f(1, 1); glVertex2i(x + width, y);
@@ -109,5 +154,31 @@ void dibujarSprite(GLuint textura, int x, int y, int width, int height) {
     glTexCoord2f(0, 0); glVertex2i(x, y + height);
     glEnd();
 
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+}
+
+void dibujarHPEnemigo(GLuint textura, int x, int y, float width, float height, int hp) {
+    glColor3f(0.4078f, 0.9216f, 0.6078f);
+    glBegin(GL_QUADS);
+    glVertex2f(x + 136.5, y + 28);
+    glVertex2f(x + 136.5 + (hp * 8.4), y + 28);
+    glVertex2f(x + 136.5 + (hp * 8.4), y + height - 59.5);
+    glVertex2f(x + 136.5, y + height - 59.5);
+    glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBindTexture(GL_TEXTURE_2D, textura);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 1); glVertex2i(x, y);
+    glTexCoord2f(1, 1); glVertex2i(x + width, y);
+    glTexCoord2f(1, 0); glVertex2i(x + width, y + height);
+    glTexCoord2f(0, 0); glVertex2i(x, y + height);
+    glEnd();
+
+    glDisable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
 }

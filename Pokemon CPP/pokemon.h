@@ -30,4 +30,6 @@ void aplicarAtaque(pokemon& atacante, pokemon& defensor, ataque atq);
 void turnJugador(int selecJugador);
 void turnEnemigo();
 void dibujarPokemon(const pokemon& p, int x, int y, bool deFrente, int width, int height);
-void dibujarSprite(GLuint textura, int x, int y, int width, int height);
+void dibujarSprite(GLuint textura, int x, int y, int width, int height, bool transparente);
+void dibujarHPJugador(GLuint textura, int x, int y, float width, float height, int hp);
+void dibujarHPEnemigo(GLuint textura, int x, int y, float width, float height, int hp);

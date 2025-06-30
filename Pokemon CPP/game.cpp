@@ -5,10 +5,15 @@
 #include "animations.h"
 #include "fonts.h"
 #include <GL/freeglut.h>
+#include <cstdlib>
 #include <iostream>
 using namespace std;
 
 // Variables globales
+bool ataquePendiente = false;
+pokemon* atacantePendiente = nullptr;
+pokemon* defensorPendiente = nullptr;
+ataque ataqueEnProceso;
 estadoJuego ultimoTurno = TURNOJUGADOR; // Ultimo turno jugado
 estadoJuego estado = SELECCION; // Estado inicial del juego
 estadoGeneral estadodeCombate = COMBATE;
@@ -20,7 +25,11 @@ GLuint menuselec = cargarTexturaDesdePNG("assets/menuatq.png", false);
 GLuint menuatq = cargarTexturaDesdePNG("assets/menuatq2.png", false);
 GLuint background = cargarTexturaDesdePNG("assets/background.png", false);
 GLuint arrow = cargarTexturaDesdePNG("assets/arrow.png", false);
+GLuint male = cargarTexturaDesdePNG("assets/male.png", false);
+GLuint female = cargarTexturaDesdePNG("assets/female.png", false);
 GLuint texturaFuente1 = cargarTexturaDesdePNG("assets/fonts/font1.png", true);
+GLuint texturaFuente2 = cargarTexturaDesdePNG("assets/fonts/font2.png", true);
+GLuint texturaFuente3 = cargarTexturaDesdePNG("assets/fonts/font3.png", true);
 GLuint hp_jugador = cargarTexturaDesdePNG("assets/hp_jugador.png", false);
 GLuint hp_enemigo = cargarTexturaDesdePNG("assets/hp_enemigo.png", false);
 
@@ -31,7 +40,11 @@ void cargarTexturas() {
     menuatq = cargarTexturaDesdePNG("assets/menuatq2.png", false);
     background = cargarTexturaDesdePNG("assets/background.png", false);
     arrow = cargarTexturaDesdePNG("assets/arrow.png", false);
+    male = cargarTexturaDesdePNG("assets/male.png", false);
+    female = cargarTexturaDesdePNG("assets/female.png", false);
     texturaFuente1 = cargarTexturaDesdePNG("assets/fonts/font1.png", true);
+    texturaFuente2 = cargarTexturaDesdePNG("assets/fonts/font2.png", true);
+    texturaFuente3 = cargarTexturaDesdePNG("assets/fonts/font3.png", true);
     hp_jugador = cargarTexturaDesdePNG("assets/hp_jugador.png", false);
     hp_enemigo = cargarTexturaDesdePNG("assets/hp_enemigo.png", false);
 }
@@ -51,9 +64,9 @@ void display() {
         dibujarBoton(menuPokemon[0][2], (filaSelec == 0 && colSelec == 2)); // Dibuja el botón de Charmander
 
         // Dibujo de sprites encima de los botones
-        dibujarSprite(bulbasaur.texturaID2, 124, WINDOW_HEIGHT / 2 - 56, 152, 152);
-        dibujarSprite(squirtle.texturaID2, 324, WINDOW_HEIGHT / 2 - 56, 152, 152);
-        dibujarSprite(charmander.texturaID2, 524, WINDOW_HEIGHT / 2 - 56, 152, 152);
+        dibujarSprite(bulbasaur.texturaID2, 124, WINDOW_HEIGHT / 2 - 56, 152, 152, false);
+        dibujarSprite(squirtle.texturaID2, 324, WINDOW_HEIGHT / 2 - 56, 152, 152, false);
+        dibujarSprite(charmander.texturaID2, 524, WINDOW_HEIGHT / 2 - 56, 152, 152, false);
     }
     else if ((estadoVisual == SELECCIONMENU && estadodeCombate == COMBATE) || (estadoVisual == SELECCIONATQ && estadodeCombate == COMBATE)) {
 		// Dibujo del fondo
@@ -66,9 +79,19 @@ void display() {
         glTexCoord2i(0, 0); glVertex2i(0, WINDOW_HEIGHT);
         glEnd();
         glDisable(GL_TEXTURE_2D);
-        // Dibujo de Pokemones
-        dibujarPokemon(pokeJugador, 100, 155 + (int)animOffsetJugador, true, 200, 200);
-        dibujarPokemon(pokeEnemigo, 500, 350, false, 150, 150);
+        // Dibujo de Pokemones y barras de vida
+        dibujarHPJugador(hp_jugador, 400, 160, 104*(3.5), (37*(3.5)), pokeJugador.vida);
+        renderizarTexto(pokeJugador.nombre, 455, 238, 3.0f, texturaFuente2);
+        renderizarTexto("5", 715, 241, 2.6f, texturaFuente2);
+        renderizarTexto(to_string(pokeJugador.vida), 645, 184, 2.4f, texturaFuente1);
+        dibujarSprite(male, 620, 241, 19, 30, true);
+        renderizarTexto("/20", 675, 184, 2.4f, texturaFuente1);
+        dibujarHPEnemigo(hp_enemigo, 20, 450, (100 * (3.5)), (29 * (3.5)), pokeEnemigo.vida);
+        renderizarTexto(pokeEnemigo.nombre, 50, 502, 3.0f, texturaFuente2);
+        renderizarTexto("5", 300, 505, 2.6f, texturaFuente2);
+        dibujarSprite(male, 232, 505, 19, 30, true);
+        dibujarPokemon(pokeJugador, 125, 155 + (int)animOffsetJugador, true, 175, 175);
+        dibujarPokemon(pokeEnemigo, 525, 325, false, 125, 125);
         // Dibujo de la barra inferior
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, barrainferior);
@@ -90,6 +113,11 @@ void display() {
             glTexCoord2i(0, 0); glVertex2i(400, 160);
             glEnd();
             glDisable(GL_TEXTURE_2D);
+
+            // Texto en pantalla
+            renderizarTexto("What will", 44, 90, 3.0f, texturaFuente3);
+            renderizarTexto(pokeJugador.nombre + " do", 44, 37, 3.0f, texturaFuente3);
+
             // Dibujo de la flecha
 			int fx = 432, fy = 92, fw = 14, fh = 21; // Posicion y tamaño de la flecha
             switch (filaSelec) {
@@ -173,6 +201,7 @@ void display() {
             renderizarTexto(pokeJugador.ataque2.nombre.c_str(), 300, 90, 3.0f, texturaFuente1);
             renderizarTexto("-", 51, 40, 3.0f, texturaFuente1);
             renderizarTexto("-", 301, 40, 3.0f, texturaFuente1);
+            renderizarTexto("NORMAL", 645, 32, 3.0f, texturaFuente1);
             // Dibujo de la flecha
             int fx = 30, fy = 95, fw = 14, fh = 21; // Posicion y tamaño de la flecha
             switch (filaSelec) {
@@ -190,6 +219,8 @@ void display() {
                     glEnd();
                     glDisable(GL_BLEND);
                     glDisable(GL_TEXTURE_2D);
+                    renderizarTexto(to_string(pokeJugador.ataque1.pp), 672, 92, 2.8f, texturaFuente1);
+                    renderizarTexto(to_string(pokeJugador.ataque1.ppfijo), 735, 92, 2.8f, texturaFuente1);
                 }
                 else if (colSelec == 1) {
                     glEnable(GL_TEXTURE_2D);
@@ -204,6 +235,8 @@ void display() {
                     glEnd();
                     glDisable(GL_BLEND);
                     glDisable(GL_TEXTURE_2D);
+                    renderizarTexto(to_string(pokeJugador.ataque2.pp), 672, 92, 2.8f, texturaFuente1);
+                    renderizarTexto(to_string(pokeJugador.ataque2.ppfijo), 735, 92, 2.8f, texturaFuente1);
                 }
                 break;
 
@@ -239,6 +272,41 @@ void display() {
                 break;
             }
         }
+    }
+    else if (estadoVisual == ESPERATURNO) {
+        // Dibujo del fondo
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, background);
+        glBegin(GL_QUADS);
+        glTexCoord2i(0, 1); glVertex2i(0, 160);
+        glTexCoord2i(1, 1); glVertex2i(WINDOW_WIDTH, 160);
+        glTexCoord2i(1, 0); glVertex2i(WINDOW_WIDTH, WINDOW_HEIGHT);
+        glTexCoord2i(0, 0); glVertex2i(0, WINDOW_HEIGHT);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+        // Dibujo de Pokemones y barras de vida
+        dibujarHPJugador(hp_jugador, 400, 160, 104 * (3.5), (37 * (3.5)), pokeJugador.vida);
+        renderizarTexto(pokeJugador.nombre, 455, 238, 3.0f, texturaFuente2);
+        renderizarTexto("5", 715, 241, 2.6f, texturaFuente2);
+        renderizarTexto(to_string(pokeJugador.vida), 645, 184, 2.4f, texturaFuente1);
+        dibujarSprite(male, 620, 241, 19, 30, true);
+        renderizarTexto("/20", 675, 184, 2.4f, texturaFuente1);
+        dibujarHPEnemigo(hp_enemigo, 20, 450, (100 * (3.5)), (29 * (3.5)), pokeEnemigo.vida);
+        renderizarTexto(pokeEnemigo.nombre, 50, 502, 3.0f, texturaFuente2);
+        renderizarTexto("5", 300, 505, 2.6f, texturaFuente2);
+        dibujarSprite(male, 232, 505, 19, 30, true);
+        dibujarPokemon(pokeJugador, 125, 155 + (int)animOffsetJugador, true, 175, 175);
+        dibujarPokemon(pokeEnemigo, 525, 325, false, 125, 125);
+        // Dibujo de la barra inferior
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, barrainferior);
+        glBegin(GL_QUADS);
+        glTexCoord2i(0, 1); glVertex2i(0, 0);
+        glTexCoord2i(1, 1); glVertex2i(WINDOW_WIDTH, 0);
+        glTexCoord2i(1, 0); glVertex2i(WINDOW_WIDTH, 160);
+        glTexCoord2i(0, 0); glVertex2i(0, 160);
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
     }
     else if (estadoVisual == SELECCIONFINCOMBATE) {
         glColor3f(1.0f, 0.0f, 0.0f); // Color rojo para el mensaje de fin de combate
@@ -329,6 +397,7 @@ void teclado(unsigned char key, int x, int y) { // Función para manejar las tecl
             if (seleccionAtq) {
                 if (filaSelec == 0 && colSelec == 0) {
                     ataqueJugador = 0;
+					pokeJugador.ataque1.pp--; // Reducir los PP del ataque
                     if (pokeJugador.velocidad > pokeEnemigo.velocidad || pokeJugador.velocidad == pokeEnemigo.velocidad) {
                         estado = TURNOJUGADOR; // Cambiar al estado de turno del jugador
                         ultimoTurno = estado;
@@ -348,6 +417,7 @@ void teclado(unsigned char key, int x, int y) { // Función para manejar las tecl
                 }
                 else if (filaSelec == 0 && colSelec == 1) {
                     ataqueJugador = 1;
+					pokeJugador.ataque2.pp--; // Reducir los PP del ataque
                     if (pokeJugador.velocidad > pokeEnemigo.velocidad || pokeJugador.velocidad == pokeEnemigo.velocidad) {
 						estado = TURNOJUGADOR; // Cambiar al estado de turno del jugador
                         ultimoTurno = estado;

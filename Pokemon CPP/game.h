@@ -14,6 +14,7 @@ enum estadoJuego {
     MENUATQ,  
     TURNOJUGADOR,  
 	TURNOENEMIGO,
+    ESPERA,
     MENUFIN,
     NONE
 };  
@@ -23,6 +24,10 @@ enum estadoGeneral {
     FINCOMBATE  
 };
 
+extern bool ataquePendiente;
+extern pokemon* atacantePendiente;
+extern pokemon* defensorPendiente;
+extern ataque ataqueEnProceso;
 extern estadoVis estadoVisual; // Estado visual del juego
 extern estadoJuego estado; // Estado del juego
 extern estadoGeneral estadodeCombate; // Estado del combate
@@ -35,3 +40,4 @@ void teclasEspeciales(int key, int x, int y);
 void display();
 void initJuego();
 void cargarTexturas();
+void procesarAtaquePendiente();
