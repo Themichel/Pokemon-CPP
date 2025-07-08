@@ -22,7 +22,7 @@ map<char, CoordLetras> mapaFuente = {
     // Fila 2 - números y símbolos
     {'0', {2, 0}}, {'1', {2, 1}}, {'2', {2, 2}}, {'3', {2, 3}}, {'4', {2, 4}}, {'5', {2, 5}},
     {'6', {2, 6}}, {'7', {2, 7}}, {'8', {2, 8}}, {'9', {2, 9}}, {'!', {2,10}}, {'?', {2,11}},
-    {'.', {2,12}}, {'-', {2,13}}, {'/', {2,14}}
+    {'.', {2,12}}, {'-', {2,13}}, {'/', {2,14}}, {'*', {2,15}}
 };
 
 void renderizarTexto(const string& texto, float x, float y, float escala, GLuint texturaFuente) {

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animations.cpp" />
+    <ClCompile Include="audio.cpp" />
     <ClCompile Include="fonts.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animations.h" />
+    <ClInclude Include="audio.h" />
     <ClInclude Include="fonts.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="include\stb_image.h" />
@@ -40,6 +42,8 @@
   <ItemGroup>
     <Image Include="assets\arrow.png" />
     <Image Include="assets\background.png" />
+    <Image Include="assets\background2.png" />
+    <Image Include="assets\background3.png" />
     <Image Include="assets\back_bulbasaur.png" />
     <Image Include="assets\back_charmander.png" />
     <Image Include="assets\back_squirtle.png" />
@@ -47,10 +51,29 @@
     <Image Include="assets\bulbasaur.png" />
     <Image Include="assets\charmander.png" />
     <Image Include="assets\enemy_hp.png" />
+    <Image Include="assets\frame.png" />
     <Image Include="assets\menuatq.png" />
     <Image Include="assets\menuatq2.png" />
     <Image Include="assets\player_hp.png" />
+    <Image Include="assets\redarrow.png" />
     <Image Include="assets\squirtle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\Music\battle.mp3" />
+    <Media Include="assets\Music\victory.mp3" />
+    <Media Include="assets\SFX\bajar.wav" />
+    <Media Include="assets\SFX\bulbdead.wav" />
+    <Media Include="assets\SFX\chardead.wav" />
+    <Media Include="assets\SFX\danio.wav" />
+    <Media Include="assets\SFX\growl.wav" />
+    <Media Include="assets\SFX\hpbaja.wav" />
+    <Media Include="assets\SFX\pokeball (1).wav" />
+    <Media Include="assets\SFX\pokeball (2).wav" />
+    <Media Include="assets\SFX\pokeball (3).wav" />
+    <Media Include="assets\SFX\pokeball (4).wav" />
+    <Media Include="assets\SFX\select.wav" />
+    <Media Include="assets\SFX\sqrtdead.wav" />
+    <Media Include="assets\SFX\tailwhip.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -114,6 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,7 +153,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\themi\Downloads\freetype-windows-binaries-master\freetype-windows-binaries-master\release static\vs2015-2022\win32\freetype.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\Users\themi\Documents\Proyectos C++\Pokemon CPP\Pokemon CPP\freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

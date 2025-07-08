@@ -19,6 +19,12 @@
     <Filter Include="Archivos de recursos\assets">
       <UniqueIdentifier>{505704af-c984-4688-b808-8dcd6d41777d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de recursos\assets\music">
+      <UniqueIdentifier>{4bec4035-1085-4349-bc27-8c52008767dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\assets\SFX">
+      <UniqueIdentifier>{e17302b3-5f23-4821-9590-00fba5e184bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -40,6 +46,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClCompile>
     <ClCompile Include="fonts.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
+    <ClCompile Include="audio.cpp">
       <Filter>Archivos de encabezado</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +75,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="fonts.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -109,5 +121,64 @@
     <Image Include="assets\player_hp.png">
       <Filter>Archivos de recursos\assets</Filter>
     </Image>
+    <Image Include="assets\redarrow.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\background2.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\frame.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+    <Image Include="assets\background3.png">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\SFX\pokeball (1).wav">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Media>
+    <Media Include="assets\SFX\pokeball (2).wav">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Media>
+    <Media Include="assets\SFX\pokeball (3).wav">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Media>
+    <Media Include="assets\SFX\pokeball (4).wav">
+      <Filter>Archivos de recursos\assets</Filter>
+    </Media>
+    <Media Include="assets\Music\battle.mp3">
+      <Filter>Archivos de recursos\assets\music</Filter>
+    </Media>
+    <Media Include="assets\Music\victory.mp3">
+      <Filter>Archivos de recursos\assets\music</Filter>
+    </Media>
+    <Media Include="assets\SFX\bajar.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\bulbdead.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\chardead.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\danio.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\growl.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\hpbaja.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\select.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\sqrtdead.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
+    <Media Include="assets\SFX\tailwhip.wav">
+      <Filter>Archivos de recursos\assets\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>
